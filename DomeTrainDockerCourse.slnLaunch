@@ -3,12 +3,12 @@
     "Name": "All",
     "Projects": [
       {
-        "Path": "DockerCourseFrontend.csproj",
+        "Path": "DockerCourseApi\\DockerCourseApi.csproj",
         "Action": "Start",
         "DebugTarget": "http"
       },
       {
-        "Path": "..\\DockerCourseApi\\DockerCourseApi.csproj",
+        "Path": "DockerCourseFrontend\\DockerCourseFrontend.csproj",
         "Action": "Start",
         "DebugTarget": "http"
       }
