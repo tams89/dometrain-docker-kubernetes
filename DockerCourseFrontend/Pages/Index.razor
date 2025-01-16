@@ -19,7 +19,6 @@
 
     private async void GetPodcasts(MouseEventArgs e)
     {
-        _podcasts = await HttpClient.GetFromJsonAsync<List<string>>("http://localhost:5001/podcasts");
-        throw new NotImplementedException();
+        _podcasts = await HttpClient.GetFromJsonAsync<List<string>>("http://localhost:5102/podcasts");
     }
 }
