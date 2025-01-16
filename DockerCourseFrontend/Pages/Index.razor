@@ -1,0 +1,25 @@
+﻿@page "/"
+@inject HttpClient HttpClient
+
+<h1>Hello, world!</h1>
+<button class="btn btn-primary" @onclick="GetPodcasts">Get Podcasts</button>
+
+@if (_podcasts is not null)
+{
+    <ul>
+        @foreach (var podcast in _podcasts)
+        {
+            <li>@podcast</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<string>? _podcasts;
+
+    private async void GetPodcasts(MouseEventArgs e)
+    {
+        _podcasts = await HttpClient.GetFromJsonAsync<List<string>>("http://localhost:5001/podcasts");
+        throw new NotImplementedException();
+    }
+}
