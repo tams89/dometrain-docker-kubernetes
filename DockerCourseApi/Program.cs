@@ -1,15 +1,18 @@
+using Dapper;
+using System.Data.SqlClient;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 var app = builder.Build();
 app.UseCors(x => x.AllowAnyOrigin());
 
-app.MapGet("/podcasts", () => new List<string>
+app.MapGet("/podcasts", async () =>
 {
-    "Podcast 1",
-    "Podcast 2",
-    "Podcast 3",
-    "Podcast 4",
-    "Podcast 5"
+    var db = new SqlConnection("Server=localhost;Initial Catalog=podcasts;User Id=sa;Password=DomeTrain12345;");
+    var podcasts = (await db.QueryAsync<Podcast>("SELECT * FROM Podcasts")).Select(x => x.title);
+    return podcasts;
 });
 
 app.Run();
+
+record Podcast(Guid id, string title);
