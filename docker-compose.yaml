@@ -27,5 +27,4 @@ services:
    depends_on: [ database ]
    build: 
       context: Database/
-      dockerfile: Dockerfile
    container_name: database-seed
