@@ -19,7 +19,7 @@ services:
     container_name: database
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "Dometrain#1234"
+      SA_PASSWORD: "Dometrain#123"
     ports:
       - 1433:1433
 
