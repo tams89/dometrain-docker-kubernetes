@@ -8,7 +8,7 @@ app.UseCors(x => x.AllowAnyOrigin());
 
 app.MapGet("/podcasts", async () =>
 {
-    var db = new SqlConnection("Server=localhost;Initial Catalog=podcasts;User Id=sa;Password=DomeTrain12345;");
+    var db = new SqlConnection("Server=database;Initial Catalog=podcasts;User Id=sa;Password=DomeTrain12345;");
     var podcasts = (await db.QueryAsync<Podcast>("SELECT * FROM Podcasts")).Select(x => x.title);
     return podcasts;
 });

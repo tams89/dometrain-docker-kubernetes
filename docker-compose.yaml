@@ -1,0 +1,31 @@
+services:
+  frontend:
+    build: ./DockerCourseFrontend/.
+    image: frontend
+    container_name: frontend
+    ports:
+      - 1234:80
+
+  api:
+    build: 
+      context: ./DockerCourseApi/.
+    image: api
+    container_name: api
+    ports:
+      - 5102:80
+
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: database
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Dometrain#1234"
+    ports:
+      - 1433:1433
+
+  database-seed:
+   depends_on: [ database ]
+   build: 
+      context: Database/
+      dockerfile: Dockerfile
+   container_name: database-seed
