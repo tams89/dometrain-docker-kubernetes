@@ -15,6 +15,7 @@ RUN dotnet restore "./DockerCourseApi.csproj"
 COPY . .
 WORKDIR "/src/."
 RUN dotnet build "./DockerCourseApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet test "./DockerCourseTests/DockerCourseTests.csproj"
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
