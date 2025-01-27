@@ -1,7 +1,7 @@
 services:
   frontend:
     build: ./DockerCourseFrontend/.
-    image: frontend
+    image: tams89/frontend
     container_name: frontend
     ports:
       - 1234:80
@@ -9,7 +9,7 @@ services:
   api:
     build: 
       context: ./DockerCourseApi/.
-    image: api
+    image: tams89/api
     container_name: api
     ports:
       - 5102:80
@@ -24,7 +24,7 @@ services:
       - 1433:1433
 
   database-seed:
-   depends_on: [ database ]
+   depends_on: [database]
    build: 
       context: Database/
    container_name: database-seed
