@@ -14,7 +14,7 @@ RUN dotnet restore ./DockerCourseTests/DockerCourseTests.csproj
 
 COPY . .
 WORKDIR /app/DockerCourseApi
-RUN dotnet publish -c Release -o out /p:UseAppHost=false --no-restore
+RUN dotnet publish -c Release -o out /p:UseAppHost=false
 
 FROM build AS test
 WORKDIR /app/DockerCourseTests
