@@ -8,7 +8,8 @@ services:
 
   api:
     build: 
-      context: ./DockerCourseApi/.
+      context: .
+      dockerfile: ./DockerCourseApi/Dockerfile
     image: tams89/api
     container_name: api
     ports:
