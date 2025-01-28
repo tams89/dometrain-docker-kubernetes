@@ -7,6 +7,7 @@ services:
       - 1234:80
 
   api:
+    depends_on: [database]
     build: 
       context: .
       dockerfile: ./DockerCourseApi/Dockerfile
