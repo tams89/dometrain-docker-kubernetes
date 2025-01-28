@@ -1,28 +1,28 @@
 # See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 EXPOSE 80
 
 # This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["DockerCourseApi.csproj", "."]
-RUN dotnet restore "./DockerCourseApi.csproj"
-COPY . .
-WORKDIR "/src/."
-RUN dotnet build "./DockerCourseApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
-RUN dotnet test "./DockerCourseTests/DockerCourseTests.csproj"
+COPY *.sln .
+COPY DockerCourseApi/*.csproj ./DockerCourseApi/
+COPY DockerCourseTests/*.csproj ./DockerCourseTests/
+RUN dotnet restore ./DockerCourseApi/DockerCourseApi.csproj
+RUN dotnet restore ./DockerCourseTests/DockerCourseTests.csproj
 
-# This stage is used to publish the service project to be copied to the final stage
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./DockerCourseApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+COPY . .
+WORKDIR /app/DockerCourseApi
+RUN dotnet publish -c Release -o out /p:UseAppHost=false --no-restore
+
+FROM build AS test
+WORKDIR /app/DockerCourseTests
+COPY --from=build /app/DockerCourseTests .
+RUN dotnet test
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/DockerCourseApi/out ./
 ENTRYPOINT ["dotnet", "DockerCourseApi.dll"]
