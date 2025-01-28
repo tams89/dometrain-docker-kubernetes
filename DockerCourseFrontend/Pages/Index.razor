@@ -20,6 +20,8 @@
 
     private async void GetPodcasts(MouseEventArgs e)
     {
+        // The URL is still localhost becuase the frontend is running in the browser 
+        // the brower will call the API which is via localhost and not from inside the same or any container
         _podcasts = await HttpClient.GetFromJsonAsync<List<string>>("http://localhost:5102/podcasts");
     }
 }
