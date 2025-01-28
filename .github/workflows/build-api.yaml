@@ -37,7 +37,7 @@ jobs:
         -t $${{ secrets.DOCKER_USERNAME }}/api:${{github.run_number}} \
         -f ./DockerCourseApi/Dockerfile \
         --network host \
-        ./DockerCourseApi/.
+        /.
     - 
       name: Push
       run: |
