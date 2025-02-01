@@ -33,9 +33,17 @@ DockerCourseFrontend/
 		_Imports.razor
 		...
 	DockerCourseFrontend.sln
+Scripts/
+    html/
+        index.html
+    NginxBindMountDemo.ps1
 ```
 
 ## Components
+
+### Scripts
+
+- **NginxBindMountDemo.ps1**: PowerShell script that spins up nginx in a container with a local container mounted which contains the index.html.
 
 ### Database
 
