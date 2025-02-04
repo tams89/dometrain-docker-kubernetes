@@ -1,5 +1,5 @@
-volumes:
-  sqldb-data:
+# volumes:
+  # sqldb-data:
 
 services:
   frontend:
@@ -28,8 +28,8 @@ services:
       SA_PASSWORD: "Dometrain#123"
     ports:
       - 1433:1433
-    volumes:
-      - sqldb-data:/var/opt/mssql/data
+    # volumes:
+    #   - sqldb-data:/var/opt/mssql/data
 
   database-seed:
    depends_on: [database]
